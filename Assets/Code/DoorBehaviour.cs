@@ -8,7 +8,6 @@ public class DoorBehaviour : MonoBehaviour {
 	public Transform rotationPoint;
 	public bool open = false;
 	public bool isLerping = false;
-	float timeStartedLerping;
 	Vector3 startPosition;
 	Vector3 endPosition;
 
@@ -24,18 +23,7 @@ public class DoorBehaviour : MonoBehaviour {
 
 	void StartLerping()
 	{
-		Debug.Log("Lerping");
 		isLerping = true;
-		timeStartedLerping = Time.time;
-
-		if (!open) {
-			startPosition = defaultPos;
-			endPosition = finalPos;
-		}
-		else {
-			startPosition = finalPos;
-			endPosition = defaultPos;
-		}
 	}
 
 	void FixedUpdate()
