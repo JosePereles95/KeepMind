@@ -8,17 +8,16 @@ public class DoorBehaviour : MonoBehaviour {
 	public Transform rotationPoint;
 	public bool open = false;
 	public bool isLerping = false;
-	Vector3 startPosition;
-	Vector3 endPosition;
 
-	public Vector3 finalPos;
-	public Vector3 defaultPos;
-	public float timeTakenDuringLerp;
 	public bool isReady = false;
 
 	public void Use() {
 		if(!isLerping && isReady)
 			StartLerping ();
+	}
+
+	void SetReady(bool value){
+		isReady = value;
 	}
 
 	void StartLerping()
