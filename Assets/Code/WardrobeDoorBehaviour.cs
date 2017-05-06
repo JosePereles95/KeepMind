@@ -25,6 +25,11 @@ public class WardrobeDoorBehaviour : MonoBehaviour {
 		isReady = value;
 	}
 
+	void SetBlock(){
+		if(!open)
+			isReady = false;
+	}
+
 	void StartLerping()
 	{
 		isLerping = true;
