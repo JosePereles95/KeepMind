@@ -7,6 +7,7 @@ public class GameStructure : MonoBehaviour {
 	public GameObject door1;
 	public GameObject wardrobe;
 	public GameObject notebook;
+	public Canvas pcScreen;
 	
 	// Update is called once per frame
 	void Update () {
@@ -18,5 +19,10 @@ public class GameStructure : MonoBehaviour {
 			notebook.GetComponent<GrabObject> ().canHold = true;
 		else
 			notebook.GetComponent<GrabObject> ().canHold = false;
+
+		if (desk.GetComponent<MakeZoom> ().lookingPC)
+			pcScreen.enabled = true;
+		else
+			pcScreen.enabled = false;
 	}
 }

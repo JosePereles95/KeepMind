@@ -8,6 +8,7 @@ public class MakeZoom : MonoBehaviour {
 	public bool zoomIn = false;
 	public bool zoomOut = false;
 	public bool lookingPC = false;
+	public bool raycasting = false;
 
 	public Transform cameraTargetPos;
 	public Transform cameraTargetLook;
@@ -25,7 +26,6 @@ public class MakeZoom : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		if (zoomIn) {
 			float step = speed * Time.deltaTime;
 			cameraObject.position =	Vector3.MoveTowards (cameraObject.position, cameraTargetPos.position, step);
@@ -55,16 +55,16 @@ public class MakeZoom : MonoBehaviour {
 	}
 
 	void Use (){
-
-		if (isReady && !zoomIn && !zoomOut && !lookingPC) {
-			player.GetComponent<FirstPersonController> ().enabled = false;
-			actualPos = cameraObject.position;
-			actualRot = cameraObject.rotation;
-			zoomIn = true;
-		}
-		else if (lookingPC && !zoomOut) {
-			zoomOut = true;
-			lookingPC = false;
+		if (raycasting) {
+			if (isReady && !zoomIn && !zoomOut && !lookingPC) {
+				player.GetComponent<FirstPersonController> ().enabled = false;
+				actualPos = cameraObject.position;
+				actualRot = cameraObject.rotation;
+				zoomIn = true;
+			} else if (lookingPC && !zoomOut) {
+				zoomOut = true;
+				lookingPC = false;
+			}
 		}
 	}
 
