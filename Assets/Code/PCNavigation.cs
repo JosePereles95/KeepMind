@@ -25,6 +25,8 @@ public class PCNavigation : MonoBehaviour {
 		}
 		else {
 			Cursor.visible = false;
+			usernameField.text = "";
+			passwordField.text = "";
 		}
 			
 		if (Input.GetKeyDown (KeyCode.Return)) {
@@ -37,7 +39,6 @@ public class PCNavigation : MonoBehaviour {
 		});
 
 		if (validated) {
-			Debug.Log ("Validated");
 			LogIn ();
 
 			if(Input.GetKeyDown(KeyCode.RightArrow)){

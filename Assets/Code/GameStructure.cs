@@ -1,18 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameStructure : MonoBehaviour {
 
 	public GameObject desk;
+	public GameObject pcMatt;
 	public GameObject door1;
 	public GameObject wardrobe;
 	public GameObject notebook;
 	public Canvas pcScreen;
-	
+	public Image[] screensMatt1;
+
+	public GameObject buzz1;
+	private bool buzz1Called = false;
+
+	public GameObject buzz2;
+	private bool buzz2Called = false;
+
+	void Start (){
+		pcMatt.GetComponent<PCNavigation> ().screens = screensMatt1;
+	}
+
 	// Update is called once per frame
 	void Update () {
-		if (desk.GetComponent<MakeZoom> ().zoomOut) {
+		if (pcMatt.GetComponent<PCNavigation> ().validated) {
 			door1.GetComponentInChildren<CapsuleCollider> ().enabled = true;
+		}
+
+		if (!buzz1Called && buzz1.GetComponent<Collising> ().inside) {
+			buzz1Called = true;
+			this.GetComponent<Buzz> ().MakeBuzz (1);
+		}
+
+		if (!buzz2Called && buzz2.GetComponent<Collising> ().inside) {
+			buzz2Called = true;
+			this.GetComponent<Buzz> ().MakeBuzz (2);
 		}
 
 		if (wardrobe.GetComponent<WardrobeDoorBehaviour> ().open)
