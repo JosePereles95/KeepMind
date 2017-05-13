@@ -15,7 +15,7 @@ public class PCNavigation : MonoBehaviour {
 	public bool validated = false;
 	private bool credentialsChecked = false;
 
-	private int i = 0;
+	public int i = 0;
 	
 	// Update is called once per frame
 	void Update () {
@@ -72,14 +72,14 @@ public class PCNavigation : MonoBehaviour {
 		usernameField.enabled = false;
 		passwordField.enabled = false;
 
-		screens [0].enabled = true;
+		screens [i].enabled = true;
 	}
 
 	void ChangeInfo(string next){
 		int length = screens.Length;
 
 		screens [i].enabled = false;
-		
+
 		if (next == "Right") {
 			if (i >= length - 1)
 				i = 0;
@@ -94,5 +94,6 @@ public class PCNavigation : MonoBehaviour {
 		}
 
 		screens [i].enabled = true;
+		Debug.Log ("mostrando: " + i + " de " + length);
 	}
 }

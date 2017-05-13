@@ -70,20 +70,22 @@ public class Buzz : MonoBehaviour {
 
 	void Restart (){
 
-		Debug.Log ("Restarted");
 		fade.GetComponent<Fade> ().fadeFinished = false;
 		fade.GetComponent<Fade> ().allFinished = false;
 		fade.GetComponent<Fade> ().fade = "";
 		raising = false;
+		this.GetComponent<AudioSource> ().volume = 0.0f;
 		player.GetComponent<FirstPersonController> ().enabled = true;
 
 		if (phase == 1) {
 			buzz1.GetComponent<Collider> ().enabled = false;
 			buzz1.GetComponent<Collising> ().inside = false;
+			buzz1.GetComponent<Collising> ().completed = true;
 		}
 		if (phase == 2) {
 			buzz2.GetComponent<Collider> ().enabled = false;
 			buzz2.GetComponent<Collising> ().inside = false;
+			buzz2.GetComponent<Collising> ().completed = true;
 		}
 	}
 
