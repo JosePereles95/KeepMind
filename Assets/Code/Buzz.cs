@@ -73,6 +73,10 @@ public class Buzz : MonoBehaviour {
 		fade.GetComponent<Fade> ().fadeFinished = false;
 		fade.GetComponent<Fade> ().allFinished = false;
 		fade.GetComponent<Fade> ().fade = "";
+		min = 0.0f;
+		max = 0.4f;
+		t = 0.0f;
+		changed = false;
 		raising = false;
 		this.GetComponent<AudioSource> ().volume = 0.0f;
 		player.GetComponent<FirstPersonController> ().enabled = true;

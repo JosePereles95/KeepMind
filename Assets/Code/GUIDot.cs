@@ -6,6 +6,7 @@ public class GUIDot: MonoBehaviour {
 	public Texture2D dotTexture;
 	public Rect position;
 	public GameObject deskMatt;
+	public GameObject deskLisa;
 	static bool OriginalOn = true;
 
 	void Start()
@@ -15,7 +16,8 @@ public class GUIDot: MonoBehaviour {
 	}
 
 	void Update(){
-		if (deskMatt.GetComponent<MakeZoom> ().lookingPC) {
+		if (deskMatt.GetComponent<MakeZoom> ().lookingPC ||
+			deskLisa.GetComponent<MakeZoom> ().lookingPC) {
 			OriginalOn = false;
 		}
 		else

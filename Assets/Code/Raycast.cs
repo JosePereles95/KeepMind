@@ -7,8 +7,6 @@ public class Raycast : MonoBehaviour {
 		Vector3 forward = transform.TransformDirection (Vector3.forward);
 		RaycastHit hit;
 		if (Physics.Raycast(transform.position, forward, out hit)) {
-			Debug.DrawLine (transform.position, hit.point);
-			Debug.Log (hit.collider.gameObject.tag + " - " + hit.distance);
 			if (hit.distance <= 2.0 && hit.collider.gameObject.tag == "Object") {
 				
 				if (Input.GetMouseButtonDown (0)) {

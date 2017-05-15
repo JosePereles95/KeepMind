@@ -4,14 +4,16 @@ using UnityEngine.UI;
 
 public class GameStructure : MonoBehaviour {
 
-	public GameObject desk;
+	public GameObject deskMatt;
 	public GameObject pcMatt;
 	public GameObject door1;
 	public GameObject wardrobe;
 	public GameObject notebook;
-	public Canvas pcScreen;
+	public Canvas pcScreenMatt;
 	public Image[] screensMatt1;
 	public Image[] screensMatt2;
+	public Image[] screensMatt3;
+	public Image[] screensMatt4;
 	public bool firstChange = false;
 
 	public GameObject buzz1;
@@ -24,8 +26,23 @@ public class GameStructure : MonoBehaviour {
 	public GameObject buzz2;
 	private bool buzz2Called = false;
 
+	public GameObject diary;
+	public bool diaryFound = false;
+	public bool buzz2Ready = false;
+
+	public GameObject door3;
+	public bool secondChange = false;
+	public Canvas pcScreenLisa;
+	public GameObject deskLisa;
+	public GameObject pcLisa;
+	public Image[] screensLisa1;
+
 	void Start (){
 		pcMatt.GetComponent<PCNavigation> ().screens = screensMatt1;
+		door1.GetComponentInChildren<CapsuleCollider> ().enabled = false;
+		door2.GetComponentInChildren<CapsuleCollider> ().enabled = false;
+		buzz2.GetComponent<Collider> ().enabled = false;
+		pcLisa.GetComponent<PCNavigation>().screens = screensLisa1;
 	}
 
 	// Update is called once per frame
@@ -39,10 +56,15 @@ public class GameStructure : MonoBehaviour {
 		else
 			notebook.GetComponent<GrabObject> ().canHold = false;
 
-		if (desk.GetComponent<MakeZoom> ().lookingPC)
-			pcScreen.enabled = true;
+		if (deskMatt.GetComponent<MakeZoom> ().lookingPC)
+			pcScreenMatt.enabled = true;
 		else
-			pcScreen.enabled = false;
+			pcScreenMatt.enabled = false;
+
+		if (deskLisa.GetComponent<MakeZoom> ().lookingPC)
+			pcScreenLisa.enabled = true;
+		else
+			pcScreenLisa.enabled = false;
 
 		if (!buzz1Called && buzz1.GetComponent<Collising> ().inside) {
 			buzz1Called = true;
@@ -64,6 +86,26 @@ public class GameStructure : MonoBehaviour {
 		if (keyFound && !key.GetComponent<GrabObject> ().isHolding) {
 			key.SetActive (false);
 			door2.GetComponentInChildren<CapsuleCollider> ().enabled = true;
+		}
+
+		if (!diaryFound && diary.GetComponent<GrabObject> ().isHolding) {
+			diaryFound = true;
+			pcMatt.GetComponent<PCNavigation> ().screens = screensMatt3;
+		}
+
+		if (deskMatt.GetComponent<MakeZoom> ().lookingPC && diaryFound)
+			buzz2Ready = true;
+		
+		if (buzz2Ready) {
+			buzz2.GetComponent<Collider> ().enabled = true;
+			buzz2Ready = false;
+		}
+
+		if (!secondChange && buzz2.GetComponent<Collising> ().completed) {
+			secondChange = true;
+			pcMatt.GetComponent<PCNavigation> ().screens = screensMatt4;
+			door3.GetComponentInChildren<CapsuleCollider> ().enabled = true;
+			door3.GetComponent<DoorBehaviour> ().Use ();
 		}
 	}
 }
