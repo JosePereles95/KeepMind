@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Interact: MonoBehaviour {
+public class Collising : MonoBehaviour {
 
 	public bool inside = false;
+	public bool completed = false;
 
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "Player") {
-			this.transform.parent.SendMessage ("SetReady", true);
+			//this.transform.parent.SendMessage ("SetReady", true);
 			inside = true;
 		}
 	}
-
+	/*
 	void OnTriggerExit(Collider other) {
 		if (other.tag == "Player") {
 			this.transform.parent.SendMessage ("SetReady", false);
@@ -24,5 +25,5 @@ public class Interact: MonoBehaviour {
 		if (inside && Input.GetKey (KeyCode.Space)) {
 			this.transform.parent.SendMessage ("Use");
 		}
-	}
+	}*/
 }

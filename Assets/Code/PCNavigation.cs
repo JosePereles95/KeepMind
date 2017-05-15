@@ -14,17 +14,22 @@ public class PCNavigation : MonoBehaviour {
 
 	public bool validated = false;
 	private bool credentialsChecked = false;
+	private bool reset = false;
+	private bool cleaned = true;
 
-	private int i = 0;
+	public int i = 0;
 	
 	// Update is called once per frame
 	void Update () {
 		if (desk.GetComponent<MakeZoom> ().lookingPC) {
+			if(!reset)
+				Reset ();
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
+			background.enabled = true;
 		}
-		else {
-			Cursor.visible = false;
+		else if (!cleaned){
+			Clean ();
 		}
 			
 		if (Input.GetKeyDown (KeyCode.Return)) {
@@ -37,7 +42,6 @@ public class PCNavigation : MonoBehaviour {
 		});
 
 		if (validated) {
-			Debug.Log ("Validated");
 			LogIn ();
 
 			if(Input.GetKeyDown(KeyCode.RightArrow)){
@@ -71,14 +75,14 @@ public class PCNavigation : MonoBehaviour {
 		usernameField.enabled = false;
 		passwordField.enabled = false;
 
-		screens [0].enabled = true;
+		screens [i].enabled = true;
 	}
 
 	void ChangeInfo(string next){
 		int length = screens.Length;
 
 		screens [i].enabled = false;
-		
+
 		if (next == "Right") {
 			if (i >= length - 1)
 				i = 0;
@@ -93,5 +97,21 @@ public class PCNavigation : MonoBehaviour {
 		}
 
 		screens [i].enabled = true;
+		Debug.Log ("mostrando: " + i + " de " + length);
+	}
+
+	void Reset(){
+		usernameField.text = "";
+		passwordField.text = "";
+		reset = true;
+		cleaned = false;
+	}
+
+	void Clean(){
+		background.enabled = false;
+		screens [i].enabled = false;
+		Cursor.visible = false;
+		cleaned = true;
+		reset = false;
 	}
 }
