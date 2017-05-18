@@ -1,15 +1,27 @@
 fileFormatVersion: 2
-guid: 9665769e58a20ca4eb0b2b1182bac28c
-timeCreated: 1494084373
+guid: bf4a648645aa8bc45aa6183ea13473c9
+timeCreated: 1494954053
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Box014
+    100000: toilet
+    100002: //RootNode
+    100004: wc board
+    100006: wc board T
+    400000: toilet
+    400002: //RootNode
+    400004: wc board
+    400006: wc board T
+    2300000: toilet
+    2300002: wc board
+    2300004: wc board T
+    3300000: toilet
+    3300002: wc board
+    3300004: wc board T
+    4300000: toilet
+    4300002: wc board
+    4300004: wc board T
     9500000: //RootNode
   materials:
     importMaterials: 1

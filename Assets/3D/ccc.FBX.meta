@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 9665769e58a20ca4eb0b2b1182bac28c
-timeCreated: 1494084373
+guid: 3775bff3323f45f42866829de2567e68
+timeCreated: 1494947634
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Box014
+    4300000: box
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -40,7 +40,7 @@ ModelImporter:
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

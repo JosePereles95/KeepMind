@@ -1,15 +1,22 @@
 fileFormatVersion: 2
-guid: 9665769e58a20ca4eb0b2b1182bac28c
-timeCreated: 1494084373
+guid: de8f79290c199ea46b1eaeb8b34716cc
+timeCreated: 1495124293
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Box014
+    100000: Box020
+    100002: Box021
+    100004: //RootNode
+    400000: Box020
+    400002: Box021
+    400004: //RootNode
+    2300000: Box020
+    2300002: Box021
+    3300000: Box020
+    3300002: Box021
+    4300000: Box020
+    4300002: Box021
     9500000: //RootNode
   materials:
     importMaterials: 1

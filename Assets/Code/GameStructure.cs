@@ -37,10 +37,14 @@ public class GameStructure : MonoBehaviour {
 	public GameObject pcLisa;
 	public Image[] screensLisa1;
 
+	public GameObject door5;
+
 	void Start (){
 		pcMatt.GetComponent<PCNavigation> ().screens = screensMatt1;
 		door1.GetComponentInChildren<CapsuleCollider> ().enabled = false;
 		door2.GetComponentInChildren<CapsuleCollider> ().enabled = false;
+		door3.GetComponentInChildren<CapsuleCollider> ().enabled = false;
+		door5.GetComponentInChildren<CapsuleCollider> ().enabled = false;
 		buzz2.GetComponent<Collider> ().enabled = false;
 		pcLisa.GetComponent<PCNavigation>().screens = screensLisa1;
 	}
@@ -105,7 +109,11 @@ public class GameStructure : MonoBehaviour {
 			secondChange = true;
 			pcMatt.GetComponent<PCNavigation> ().screens = screensMatt4;
 			door3.GetComponentInChildren<CapsuleCollider> ().enabled = true;
-			door3.GetComponent<DoorBehaviour> ().Use ();
+			//door3.GetComponent<DoorBehaviour> ().Use ();
+		}
+
+		if (pcLisa.GetComponent<PCNavigation> ().validated) {
+			door5.GetComponentInChildren<CapsuleCollider> ().enabled = true;
 		}
 	}
 }
