@@ -23,6 +23,7 @@ public class GrabObject: MonoBehaviour {
 			player.GetComponent<FirstPersonController> ().enabled = false;
 
 			if (Input.GetMouseButtonDown (1)) {
+				this.GetComponent<AudioSource> ().Play ();
 				isHolding = false;
 				player.GetComponent<FirstPersonController> ().enabled = true;
 			}

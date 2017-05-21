@@ -11,21 +11,21 @@ public class Buzz : MonoBehaviour {
 
 	public GameObject recol1;
 	public GameObject recol2;
+	public GameObject recol3;
 
 	public GameObject buzz1;
 	public GameObject buzz2;
+	public GameObject buzz3;
 
 	private float min = 0.0f;
 	private float max = 0.4f;
 	static float t = 0.0f;
 	private bool changed = false;
 
-	// Use this for initialization
 	void Start () {
 		this.GetComponent<AudioSource> ().volume = min;
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		if (raising) {
 			this.GetComponent<AudioSource> ().volume = Mathf.Lerp (min, max, t);
@@ -58,13 +58,14 @@ public class Buzz : MonoBehaviour {
 	}
 
 	void Recolocate (){
-		if (phase == 1) {
-			Debug.Log ("Recolocate 1");		
+		if (phase == 1) {	
 			player.transform.position = recol1.transform.position;
 		}
 		if (phase == 2) {
-			Debug.Log ("Recolocate 2");	
 			player.transform.position = recol2.transform.position;
+		}
+		if (phase == 3) {
+			player.transform.position = recol3.transform.position;
 		}
 	}
 
@@ -90,6 +91,11 @@ public class Buzz : MonoBehaviour {
 			buzz2.GetComponent<Collider> ().enabled = false;
 			buzz2.GetComponent<Collising> ().inside = false;
 			buzz2.GetComponent<Collising> ().completed = true;
+		}
+		if (phase == 3) {
+			buzz3.GetComponent<Collider> ().enabled = false;
+			buzz3.GetComponent<Collising> ().inside = false;
+			buzz3.GetComponent<Collising> ().completed = true;
 		}
 	}
 

@@ -9,6 +9,9 @@ public class DoorBehaviour : MonoBehaviour {
 	public bool open = false;
 	public bool isLerping = false;
 
+	public AudioClip clipOpen;
+	public AudioClip clipClose;
+
 	public bool isReady = false;
 
 	public void Use() {
@@ -23,6 +26,15 @@ public class DoorBehaviour : MonoBehaviour {
 	void StartLerping()
 	{
 		isLerping = true;
+
+		if (open) {
+			this.GetComponent<AudioSource> ().clip = clipClose;
+			this.GetComponent<AudioSource> ().Play ();
+		}
+		else {
+			this.GetComponent<AudioSource> ().clip = clipOpen;
+			this.GetComponent<AudioSource> ().Play ();
+		}
 	}
 
 	void FixedUpdate()
