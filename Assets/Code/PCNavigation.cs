@@ -16,17 +16,25 @@ public class PCNavigation : MonoBehaviour {
 	private bool credentialsChecked = false;
 	private bool reset = false;
 	private bool cleaned = true;
+	private bool loggedIn = false;
 
 	public int i = 0;
-	
-	// Update is called once per frame
+
 	void Update () {
 		if (desk.GetComponent<MakeZoom> ().lookingPC) {
 			if(!reset)
 				Reset ();
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
-			background.enabled = true;
+			if (!validated) {
+				background.enabled = true;
+				usernameField.enabled = true;
+				usernameField.image.enabled = true;
+				passwordField.enabled = true;
+				passwordField.image.enabled = true;
+			}
+			else
+				screens [i].enabled = true;
 		}
 		else if (!cleaned){
 			Clean ();
@@ -42,7 +50,10 @@ public class PCNavigation : MonoBehaviour {
 		});
 
 		if (validated) {
-			LogIn ();
+			if (!loggedIn) {
+				loggedIn = true;
+				LogIn ();
+			}
 
 			if(Input.GetKeyDown(KeyCode.RightArrow)){
 				ChangeInfo ("Right");
@@ -73,8 +84,10 @@ public class PCNavigation : MonoBehaviour {
 	void LogIn(){
 		background.enabled = false;
 		usernameField.enabled = false;
+		usernameField.image.enabled = false;
 		passwordField.enabled = false;
-
+		passwordField.image.enabled = false;
+		loggedIn = true;
 		screens [i].enabled = true;
 	}
 
@@ -97,7 +110,6 @@ public class PCNavigation : MonoBehaviour {
 		}
 
 		screens [i].enabled = true;
-		Debug.Log ("mostrando: " + i + " de " + length);
 	}
 
 	void Reset(){

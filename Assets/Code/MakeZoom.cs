@@ -19,12 +19,6 @@ public class MakeZoom : MonoBehaviour {
 	public Transform cameraObject;
 	public float speed;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
 	void Update () {
 		if (zoomIn) {
 			float step = speed * Time.deltaTime;
