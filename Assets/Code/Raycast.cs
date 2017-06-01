@@ -10,7 +10,9 @@ public class Raycast : MonoBehaviour {
 	void Update () {
 		Vector3 forward = transform.TransformDirection (Vector3.forward);
 		RaycastHit hit;
+
 		if (Physics.Raycast(transform.position, forward, out hit)) {
+			
 			if (hit.distance <= 2.0 && hit.collider.gameObject.tag == "Object" &&
 			    hit.collider.gameObject.GetComponent<GrabObject> ().canHold) {
 
@@ -18,7 +20,7 @@ public class Raycast : MonoBehaviour {
 				holding = hit.collider.gameObject.GetComponent<GrabObject> ().isHolding;
 				nameObject = hit.collider.gameObject.name;
 
-				if (Input.GetMouseButtonDown (0)) {
+				if (!holding && Input.GetMouseButtonDown (0)) {
 					hit.collider.gameObject.GetComponent<GrabObject> ().isHolding = true;
 					this.GetComponentInChildren<AudioSource> ().Play ();
 				}
@@ -38,7 +40,7 @@ public class Raycast : MonoBehaviour {
 
 	void OnGUI(){
 		if (showText && !holding) {
-			GUI.Box (new Rect (Screen.width / 2 - 75, Screen.height / 2 + 75, 150, 30), nameObject);
+			GUI.Box (new Rect (Screen.width / 2 - 75, Screen.height / 2 + 75, 150, 25), nameObject);
 		}
 	}
 }

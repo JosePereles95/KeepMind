@@ -1,22 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class WardrobeDoorBehaviour : MonoBehaviour {
 
-	public float openAngleLeft;
-	public float openAngleRight;
-	public float defaultAngleLeft;
-	public float defaultAngleRight;
-	public Transform doorLeft;
-	public Transform doorRight;
-	public Transform rotationPointLeft;
-	public Transform rotationPointRight;
+	[HideInInspector] public float openAngleLeft;
+	[HideInInspector] public float openAngleRight;
+	[HideInInspector] public float defaultAngleLeft;
+	[HideInInspector] public float defaultAngleRight;
+	[HideInInspector] public Transform doorLeft;
+	[HideInInspector] public Transform doorRight;
+	[HideInInspector] public Transform rotationPointLeft;
+	[HideInInspector] public Transform rotationPointRight;
+	[HideInInspector] public AudioClip clipOpen;
+	[HideInInspector] public AudioClip clipClose;
 	public bool open = false;
+
 	public bool isLerping = false;
-
-	public AudioClip clipOpen;
-	public AudioClip clipClose;
-
 	public bool isReady = false;
 
 	public void Use() {
@@ -65,7 +65,7 @@ public class WardrobeDoorBehaviour : MonoBehaviour {
 				doorLeft.transform.RotateAround (rotationPointLeft.position, Vector3.up, -2f);
 				doorRight.transform.RotateAround (rotationPointRight.position, Vector3.up, 2f);
 
-				if (doorLeft.transform.eulerAngles.y <= defaultAngleLeft) {
+				if (doorLeft.transform.eulerAngles.y <= defaultAngleLeft || doorLeft.transform.eulerAngles.y > openAngleLeft) {
 					isLerping = false;
 					open = false;
 				}

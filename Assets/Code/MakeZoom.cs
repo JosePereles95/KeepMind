@@ -4,20 +4,24 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class MakeZoom : MonoBehaviour {
 
-	public bool isReady = false;
+	[HideInInspector] public GameObject player;
+	[HideInInspector] public Transform cameraObject;
+
+	[HideInInspector] public Transform cameraTargetPos;
+	[HideInInspector] public Transform cameraTargetLook;
+
+	[HideInInspector] public float speed;
+
+	public bool lookingPC = false;
+	[HideInInspector] public bool raycasting = false;
+
+	private bool isReady = false;
+
 	public bool zoomIn = false;
 	public bool zoomOut = false;
-	public bool lookingPC = false;
-	public bool raycasting = false;
 
-	public Transform cameraTargetPos;
-	public Transform cameraTargetLook;
-	Vector3 actualPos;
-	Quaternion actualRot;
-
-	public GameObject player;
-	public Transform cameraObject;
-	public float speed;
+	private Vector3 actualPos;
+	private Quaternion actualRot;
 
 	void Update () {
 		if (zoomIn) {

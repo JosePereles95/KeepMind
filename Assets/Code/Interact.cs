@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Interact: MonoBehaviour {
 
-	public bool inside = false;
+	[HideInInspector] public bool inside = false;
 
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "Player") {

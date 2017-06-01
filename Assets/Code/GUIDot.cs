@@ -3,19 +3,19 @@ using System.Collections;
 
 public class GUIDot: MonoBehaviour {
 
-	public Texture2D dotTexture;
-	public Rect position;
-	public GameObject deskMatt;
-	public GameObject deskLisa;
-	static bool OriginalOn = true;
+	[HideInInspector] public Texture2D dotTexture;
+	[HideInInspector] public GameObject deskMatt;
+	[HideInInspector] public GameObject deskLisa;
 
-	void Start()
-	{
+	private Rect position;
+	private static bool OriginalOn = true;
+
+	void Start() {
 		position = new Rect((Screen.width - dotTexture.width) / 2, (Screen.height - 
 			dotTexture.height) /2, dotTexture.width, dotTexture.height);
 	}
 
-	void Update(){
+	void Update() {
 		if (deskMatt.GetComponent<MakeZoom> ().lookingPC ||
 			deskLisa.GetComponent<MakeZoom> ().lookingPC) {
 			OriginalOn = false;
@@ -24,8 +24,7 @@ public class GUIDot: MonoBehaviour {
 			OriginalOn = true;
 	}
 
-	void OnGUI()
-	{
+	void OnGUI() {
 		if(OriginalOn == true)
 		{
 			GUI.DrawTexture(position, dotTexture);
