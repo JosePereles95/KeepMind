@@ -110,7 +110,7 @@ public class Buzz : MonoBehaviour {
 	}
 
 	IEnumerator Decreasing(){
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(3);
 		float temp = max;
 		max = min;
 		min = temp;
