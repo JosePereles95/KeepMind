@@ -4,41 +4,34 @@ using UnityEngine.UI;
 
 public class Fade : MonoBehaviour {
 
-	public string fade = "";
+	[HideInInspector] public string fade = "";
 
-	public Texture2D fadeTexture;
-	public float fadeSpeed = 0.6f;
-	public int drawDepth = -1000;
-	public bool fadeFinished = false;
-	public bool allFinished = false;
+	[HideInInspector] public bool fadeFinished = false;
+	[HideInInspector] public bool allFinished = false;
 
+	[HideInInspector] public Texture2D fadeTexture;
+
+	private float fadeSpeed = 0.6f;
+	private int drawDepth = -1000;
 	private float alpha = 0.0f; 
 	private int fadeDir = -1;
 
 	void OnGUI(){
 		if (fade == "OUT") {
-			alpha -= fadeDir * fadeSpeed * Time.deltaTime;  
-			alpha = Mathf.Clamp01 (alpha);   
-
+			alpha -= fadeDir * fadeSpeed * Time.deltaTime;
+			alpha = Mathf.Clamp01 (alpha);
 			Color color = new Color (255, 255, 255, alpha);
-
 			GUI.color = color;
-
 			GUI.depth = drawDepth;
-
 			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), fadeTexture);
 		}
 
 		if (fade == "IN") {
 			alpha += fadeDir * fadeSpeed * Time.deltaTime;  
 			alpha = Mathf.Clamp01 (alpha);   
-
 			Color color = new Color (255, 255, 255, alpha);
-
 			GUI.color = color;
-
 			GUI.depth = drawDepth;
-
 			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), fadeTexture);
 		}
 
@@ -47,11 +40,12 @@ public class Fade : MonoBehaviour {
 			StartCoroutine ("FadeToIn");
 		}
 
-		if (alpha == 0.0f && fade == "IN")
+		if (alpha == 0.0f && fade == "IN") {
 			allFinished = true;
+		}
 	}
 
-	public void FadeIn(){
+	void FadeIn(){
 		fade = "IN";
 	}
 
@@ -62,7 +56,7 @@ public class Fade : MonoBehaviour {
 	}
 
 	IEnumerator FadeToIn(){
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(3);
 		FadeIn ();
 	}
 }

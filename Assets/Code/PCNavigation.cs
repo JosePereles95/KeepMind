@@ -4,64 +4,75 @@ using UnityEngine.UI;
 
 public class PCNavigation : MonoBehaviour {
 
-	public GameObject desk;
-	public InputField usernameField;
-	public InputField passwordField;
-	public Image background;
-	public Image[] screens;
+	[HideInInspector] public GameObject desk;
+	[HideInInspector] public InputField usernameField;
+	[HideInInspector] public InputField passwordField;
+	[HideInInspector] public Image background;
+	[HideInInspector] public Image[] screens;
+	[HideInInspector] public AudioClip arrowClip;
+
 	public string username;
 	public string password;
-
 	public bool validated = false;
+
 	private bool credentialsChecked = false;
 	private bool reset = false;
 	private bool cleaned = true;
 	private bool loggedIn = false;
 
-	public int i = 0;
+	private int i = 0;
 
 	void Update () {
 		if (desk.GetComponent<MakeZoom> ().lookingPC) {
 			if(!reset)
 				Reset ();
 			Cursor.lockState = CursorLockMode.None;
-			Cursor.visible = true;
 			if (!validated) {
+				Cursor.visible = true;
 				background.enabled = true;
 				usernameField.enabled = true;
 				usernameField.image.enabled = true;
 				passwordField.enabled = true;
 				passwordField.image.enabled = true;
 			}
-			else
+			else {
+				Cursor.visible = false;
 				screens [i].enabled = true;
+			}
+
+			if (Input.GetKeyDown (KeyCode.Return)) {
+				credentialsChecked = false;
+			}
+
+			passwordField.onEndEdit.AddListener (delegate {
+				if (!credentialsChecked)	
+					CheckCredentials ();
+			});
+
+			if (validated) {
+				if (!loggedIn) {
+					loggedIn = true;
+					LogIn ();
+					this.GetComponent<AudioSource> ().Play ();
+				}
+
+				if(Input.GetKeyDown(KeyCode.RightArrow)){
+					this.GetComponent<AudioSource> ().clip = arrowClip;
+					this.GetComponent<AudioSource> ().Play ();
+					ChangeInfo ("Right");
+				}
+				if(Input.GetKeyDown(KeyCode.LeftArrow)){
+					this.GetComponent<AudioSource> ().clip = arrowClip;
+					this.GetComponent<AudioSource> ().Play ();
+					ChangeInfo ("Left");
+				}
+			}
 		}
 		else if (!cleaned){
 			Clean ();
 		}
 			
-		if (Input.GetKeyDown (KeyCode.Return)) {
-			credentialsChecked = false;
-		}
-			
-		passwordField.onEndEdit.AddListener (delegate {
-		if (!credentialsChecked)	
-			CheckCredentials ();
-		});
 
-		if (validated) {
-			if (!loggedIn) {
-				loggedIn = true;
-				LogIn ();
-			}
-
-			if(Input.GetKeyDown(KeyCode.RightArrow)){
-				ChangeInfo ("Right");
-			}
-			if(Input.GetKeyDown(KeyCode.LeftArrow)){
-				ChangeInfo ("Left");
-			}
-		}
 	}
 
 	void CheckCredentials(){
@@ -122,6 +133,7 @@ public class PCNavigation : MonoBehaviour {
 	void Clean(){
 		background.enabled = false;
 		screens [i].enabled = false;
+		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 		cleaned = true;
 		reset = false;

@@ -4,22 +4,25 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class Buzz : MonoBehaviour {
 
-	public GameObject player;
-	public GameObject fade;
-	private bool raising = false;
+	[HideInInspector] public GameObject player;
+	[HideInInspector] public GameObject fade;
+
+	[HideInInspector] public GameObject recol1;
+	[HideInInspector] public GameObject recol2;
+	[HideInInspector] public GameObject recol3;
+
+	[HideInInspector] public GameObject buzz1;
+	[HideInInspector] public GameObject buzz2;
+	[HideInInspector] public GameObject buzz3;
+
 	private int phase;
 
-	public GameObject recol1;
-	public GameObject recol2;
-	public GameObject recol3;
-
-	public GameObject buzz1;
-	public GameObject buzz2;
-	public GameObject buzz3;
+	private bool raising = false;
 
 	private float min = 0.0f;
 	private float max = 0.4f;
-	static float t = 0.0f;
+	private static float t = 0.0f;
+
 	private bool changed = false;
 
 	void Start () {
@@ -61,9 +64,11 @@ public class Buzz : MonoBehaviour {
 		if (phase == 1) {	
 			player.transform.position = recol1.transform.position;
 		}
+
 		if (phase == 2) {
 			player.transform.position = recol2.transform.position;
 		}
+
 		if (phase == 3) {
 			player.transform.position = recol3.transform.position;
 		}
@@ -74,11 +79,14 @@ public class Buzz : MonoBehaviour {
 		fade.GetComponent<Fade> ().fadeFinished = false;
 		fade.GetComponent<Fade> ().allFinished = false;
 		fade.GetComponent<Fade> ().fade = "";
+
 		min = 0.0f;
 		max = 0.4f;
 		t = 0.0f;
+
 		changed = false;
 		raising = false;
+
 		this.GetComponent<AudioSource> ().volume = 0.0f;
 		player.GetComponent<FirstPersonController> ().enabled = true;
 
@@ -87,11 +95,13 @@ public class Buzz : MonoBehaviour {
 			buzz1.GetComponent<Collising> ().inside = false;
 			buzz1.GetComponent<Collising> ().completed = true;
 		}
+
 		if (phase == 2) {
 			buzz2.GetComponent<Collider> ().enabled = false;
 			buzz2.GetComponent<Collising> ().inside = false;
 			buzz2.GetComponent<Collising> ().completed = true;
 		}
+
 		if (phase == 3) {
 			buzz3.GetComponent<Collider> ().enabled = false;
 			buzz3.GetComponent<Collising> ().inside = false;
@@ -100,7 +110,7 @@ public class Buzz : MonoBehaviour {
 	}
 
 	IEnumerator Decreasing(){
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(3);
 		float temp = max;
 		max = min;
 		min = temp;

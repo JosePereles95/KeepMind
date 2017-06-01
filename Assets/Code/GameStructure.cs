@@ -5,69 +5,82 @@ using UnityEngine.UI;
 
 public class GameStructure : MonoBehaviour {
 
-	public GameObject deskMatt;
-	public GameObject pcMatt;
-	public GameObject door1;
-	public GameObject wardrobe;
-	public GameObject notebook;
-	public Canvas pcScreenMatt;
-	public Image[] screensMatt1;
-	public Image[] screensMatt2;
-	public Image[] screensMatt3;
-	public Image[] screensMatt4;
-	public bool firstChange = false;
+	[HideInInspector] public GameObject deskMatt;
+	[HideInInspector] public GameObject deskLisa;
 
-	public GameObject buzz1;
+	[HideInInspector] public GameObject pcMatt;
+	[HideInInspector] public GameObject pcLisa;
+
+	[HideInInspector] public GameObject door1;
+	[HideInInspector] public GameObject door2;
+	[HideInInspector] public GameObject door3;
+	[HideInInspector] public GameObject door5;
+
+	[HideInInspector] public GameObject wardrobe;
+	[HideInInspector] public GameObject notebook;
+	[HideInInspector] public GameObject key;
+	[HideInInspector] public GameObject diary;
+	[HideInInspector] public GameObject diaryMatt;
+	[HideInInspector] public GameObject pills;
+
+	[HideInInspector] public Canvas pcScreenMatt;
+	[HideInInspector] public Canvas pcScreenLisa;
+
+	[HideInInspector] public Image[] screensMatt1;
+	[HideInInspector] public Image[] screensMatt2;
+	[HideInInspector] public Image[] screensMatt3;
+	[HideInInspector] public Image[] screensMatt4;
+
+	[HideInInspector] public Image[] screensLisa1;
+
+	[HideInInspector] public GameObject buzz1;
+	[HideInInspector] public GameObject buzz2;
+	[HideInInspector] public GameObject buzz3;
+
+	[HideInInspector] public Image textMouse;//0
+	[HideInInspector] public Image textWasd;//1
+	[HideInInspector] public Image textSpace;//2
+	[HideInInspector] public Image textLeftClick;//3
+	[HideInInspector] public Image textRightClick;//4
+	[HideInInspector] public Image textShift;//5
+	[HideInInspector] public Image textMessage;//6
+	[HideInInspector] public Image textEmily;//7
+	[HideInInspector] public Image textLisa;//8
+	[HideInInspector] public Image textArrows;//9
+
+	[HideInInspector] public AudioSource audioSource;
+	[HideInInspector] public AudioClip clipPop;
+	[HideInInspector] public AudioClip clipMessage;
+
 	private bool buzz1Called = false;
-
-	public GameObject key;
-	public bool keyFound = false;
-	public GameObject door2;
-
-	public GameObject buzz2;
 	private bool buzz2Called = false;
-
-	public GameObject diary;
-	public bool diaryFound = false;
-	public bool buzz2Ready = false;
-
-	public GameObject door3;
-	public bool secondChange = false;
-	public Canvas pcScreenLisa;
-	public GameObject deskLisa;
-	public GameObject pcLisa;
-	public Image[] screensLisa1;
-
-	public GameObject door5;
-	public GameObject diaryMatt;
-	public GameObject pills;
-
-	public GameObject buzz3;
 	private bool buzz3Called = false;
-	public bool buzz3Ready = false;
-	public bool thirdChange = false;
 
-	public Image textMouse;//0
+	private bool buzz2Ready = false;
+	private bool buzz3Ready = false;
+
+	private bool firstChange = false;
+	private bool secondChange = false;
+	private bool thirdChange = false;
+
+	private bool keyFound = false;
+	private bool diaryFound = false;
+
 	private bool text0 = false;
-	public Image textWasd;//1
 	private bool text1 = false;
-	public Image textSpace;//2
 	private bool text2 = false;
-	public Image textRightClick;//3
 	private bool text3 = false;
-	public Image textLeftClick;//4
 	private bool text4 = false;
-	public Image textShift;//5
 	private bool text5 = false;
-	public Image textMessage;//6
 	private bool text6 = false;
-	public Image textEmily;//7
 	private bool text7 = false;
-	public Image textLisa;//8
 	private bool text8 = false;
+	private bool text9 = false;
 
 	private Image[] texts;
 	private bool[] boolTexts;
+
+	private bool soundDone = false;
 
 	void Start (){
 		pcMatt.GetComponent<PCNavigation> ().screens = screensMatt1;
@@ -78,34 +91,39 @@ public class GameStructure : MonoBehaviour {
 		buzz2.GetComponent<Collider> ().enabled = false;
 		pcLisa.GetComponent<PCNavigation>().screens = screensLisa1;
 		pills.GetComponent<GrabObject> ().canHold = false;
-		texts = new Image[] {textMouse, textWasd, textSpace, textRightClick,
-			textLeftClick, textShift, textMessage, textEmily, textLisa
+		texts = new Image[] {textMouse, textWasd, textSpace, textLeftClick,
+			textRightClick, textShift, textMessage, textEmily, textLisa, textArrows
 		};
 		boolTexts = new bool[] {text0, text1, text2, text3, text4,
-			text5, text6, text7, text8
+			text5, text6, text7, text8, text9
 		};
 	}
 
-	// Update is called once per frame
 	void Update () {
 		if (pcMatt.GetComponent<PCNavigation> ().validated) {
 			door1.GetComponentInChildren<CapsuleCollider> ().enabled = true;
 		}
 
-		if (wardrobe.GetComponent<WardrobeDoorBehaviour> ().open)
+		if (wardrobe.GetComponent<WardrobeDoorBehaviour> ().open) {
 			notebook.GetComponent<GrabObject> ().canHold = true;
-		else
+		}
+		else {
 			notebook.GetComponent<GrabObject> ().canHold = false;
+		}
 
-		if (deskMatt.GetComponent<MakeZoom> ().lookingPC)
+		if (deskMatt.GetComponent<MakeZoom> ().lookingPC) {
 			pcScreenMatt.enabled = true;
-		else
+		}
+		else {
 			pcScreenMatt.enabled = false;
+		}
 
-		if (deskLisa.GetComponent<MakeZoom> ().lookingPC)
+		if (deskLisa.GetComponent<MakeZoom> ().lookingPC) {
 			pcScreenLisa.enabled = true;
-		else
+		}
+		else {
 			pcScreenLisa.enabled = false;
+		}
 
 		if (!buzz1Called && buzz1.GetComponent<Collising> ().inside) {
 			buzz1Called = true;
@@ -123,8 +141,10 @@ public class GameStructure : MonoBehaviour {
 			this.GetComponent<Buzz> ().MakeBuzz (2);
 		}
 
-		if (key.GetComponent<GrabObject> ().isHolding)
+		if (key.GetComponent<GrabObject> ().isHolding) {
 			keyFound = true;
+		}
+
 		if (keyFound && !key.GetComponent<GrabObject> ().isHolding) {
 			key.SetActive (false);
 			door2.GetComponentInChildren<CapsuleCollider> ().enabled = true;
@@ -136,8 +156,9 @@ public class GameStructure : MonoBehaviour {
 			pcMatt.GetComponent<PCNavigation> ().screens = screensMatt3;
 		}
 
-		if (deskMatt.GetComponent<MakeZoom> ().lookingPC && diaryFound)
+		if (deskMatt.GetComponent<MakeZoom> ().lookingPC && diaryFound) {
 			buzz2Ready = true;
+		}
 		
 		if (buzz2Ready) {
 			buzz2.GetComponent<Collider> ().enabled = true;
@@ -177,68 +198,82 @@ public class GameStructure : MonoBehaviour {
 
 		if (!thirdChange && buzz3.GetComponent<Collising> ().completed) {
 			thirdChange = true;
-			//End
 			StartCoroutine("End");
 		}
 
 		//Texts
-		if (!boolTexts [0]) {//Mouse
+		if (!soundDone && !boolTexts [0]) {//Mouse
 			ShowText (0);
 		}
 		
-		if (!boolTexts [1] && boolTexts [0]) {//Wasd
+		if (!soundDone && !boolTexts [1] && boolTexts [0]) {//Wasd
 			ShowText (1);
 		}
 
-		if (!boolTexts [2] && boolTexts [1]) {//Space
+		if (!soundDone && !boolTexts [2] && boolTexts [1]) {//Space
 			ShowText (2);
 		}
 
-		if (!boolTexts [3] && boolTexts [2] &&
-			wardrobe.GetComponent<WardrobeDoorBehaviour>().open) {//Right Click
+		if (!soundDone && !boolTexts [3] && boolTexts [2] &&
+			wardrobe.GetComponent<WardrobeDoorBehaviour>().open) {//Left Click
 			ShowText (3);
 		}
 
-		if (!boolTexts [4] && boolTexts [3] &&
-			notebook.GetComponent<GrabObject>().isHolding) {//Left click
+		if (!soundDone && !boolTexts [4] && boolTexts [3] &&
+			notebook.GetComponent<GrabObject>().isHolding) {//Right click
 			ShowText (4);
 		}
 
-		if (!boolTexts [5] && door1.GetComponent<DoorBehaviour>().open) {//Shift
+		if (!soundDone && !boolTexts [9] && pcMatt.GetComponent<PCNavigation>().validated) {//Arrows
+			ShowText (9);
+		}
+
+		if (!soundDone && !boolTexts [5] && door1.GetComponent<DoorBehaviour>().open) {//Shift
 			ShowText (5);
 		}
 
 		if (firstChange) {
 			
-			if (!boolTexts [6]) {//Message 1
+			if (!soundDone && !boolTexts [6]) {//Message 1
 				ShowText (6);
 			}
 		}
 
 		if (keyFound) {
-			if (!boolTexts [7] && boolTexts[6]) {//Emily
+			if (!soundDone && !boolTexts [7] && boolTexts[6]) {//Emily
 				ShowText (7);
 			}
 		}
 
 		if (diaryFound) {
-			if (!boolTexts [6]) {//Message 2
+			if (!soundDone && !boolTexts [6]) {//Message 2
 				ShowText (6);
 			}
 		}
 
 		if (secondChange) {
-			if (!boolTexts [6]) {//Message 3
+			if (!soundDone && !boolTexts [6]) {//Message 3
 				ShowText (6);
 			}
 
-			if (!boolTexts [8] && boolTexts [6]) {//Lisa
+			if (!soundDone && !boolTexts [8] && boolTexts [6]) {//Lisa
 				ShowText (8);
 			}
 		}
 	}
 
 	void ShowText(int i){
+		if (!soundDone && i == 6) {
+			audioSource.clip = clipMessage;
+			audioSource.Play ();
+			soundDone = true;
+		}
+		else if(!soundDone && i !=6) {
+			audioSource.clip = clipPop;
+			audioSource.Play ();
+			soundDone = true;
+		}
+
 		texts [i].enabled = true;
 		StartCoroutine ("HideText", i);
 	}
@@ -247,6 +282,7 @@ public class GameStructure : MonoBehaviour {
 		yield return new WaitForSeconds(4);
 		texts [i].enabled = false;
 		boolTexts [i] = true;
+		soundDone = false;
 	}
 
 	IEnumerator End(){
@@ -259,5 +295,4 @@ public class GameStructure : MonoBehaviour {
 		pills.GetComponent<GrabObject> ().isHolding = false;
 		pills.SetActive (false);
 	}
-
 }

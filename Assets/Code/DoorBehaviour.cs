@@ -3,28 +3,29 @@ using System.Collections;
 
 public class DoorBehaviour : MonoBehaviour {
 
-	public float openAngle;
-	public float defaultAngle;
-	public Transform rotationPoint;
-	public bool open = false;
-	public bool isLerping = false;
+	[HideInInspector] public float openAngle;
+	[HideInInspector] public float defaultAngle;
 
-	public AudioClip clipOpen;
-	public AudioClip clipClose;
+	[HideInInspector] public Transform rotationPoint;
 
-	public bool isReady = false;
+	[HideInInspector] public bool open = false;
+
+	[HideInInspector] public AudioClip clipOpen;
+	[HideInInspector] public AudioClip clipClose;
+
+	private bool isReady = false;
+	private bool isLerping = false;
 
 	public void Use() {
 		if(!isLerping && isReady)
 			StartLerping ();
 	}
 
-	void SetReady(bool value){
+	void SetReady(bool value) {
 		isReady = value;
 	}
 
-	void StartLerping()
-	{
+	void StartLerping() {
 		isLerping = true;
 
 		if (open) {
@@ -37,10 +38,8 @@ public class DoorBehaviour : MonoBehaviour {
 		}
 	}
 
-	void FixedUpdate()
-	{
+	void FixedUpdate() {
 		if (isLerping) {
-
 			if (!open) {
 				transform.RotateAround (rotationPoint.position, Vector3.up, 2f);
 				if (transform.eulerAngles.y >= openAngle) {
@@ -50,7 +49,7 @@ public class DoorBehaviour : MonoBehaviour {
 			}
 			else {
 				transform.RotateAround (rotationPoint.position, Vector3.up, -2f);
-				if (transform.eulerAngles.y <= defaultAngle) {
+				if (transform.eulerAngles.y <= defaultAngle || transform.eulerAngles.y > openAngle) {
 					isLerping = false;
 					open = false;
 				}
